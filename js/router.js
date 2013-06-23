@@ -2,6 +2,6 @@
 define(['backbone'], function (BB) {
 	"use strict";
 
-	var ret = BB.router.extend({});
+	var ret = BB.Router.extend({});
 	return ret;
 });

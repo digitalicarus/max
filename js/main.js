@@ -1,38 +1,35 @@
 /*global define:true,require:true,Backbone:true,$:true,_:true*/
 require.config({
 	paths: {
-		'backbone': 'vendor/backbone-min',
-		'underscore': 'vendor/underscore-min',
-		'jquery': 'vendor/jquery-2.0.2.min'
+		backbone: 'vendor/backbone-min',
+		underscore: 'vendor/underscore-min',
+		jquery: 'vendor/jquery-2.0.2.min'
 	},
 	shim: {
-		'backbone': {
+
+		underscore: {
+			init: function() {
+				"use strict";
+				return this._.noConflict();
+			}
+		},
+		jquery: {
+			init: function() {
+				"use strict";
+				return this.$.noConflict();
+			}
+		},
+		backbone: {
 			deps: ['underscore', 'jquery'],
-			exports: function () {
+			init: function () {
 				"use strict";
-				return Backbone.noConflict();
-			}
-		},
-		'underscore': {
-			exports: function() {
-				"use strict";
-				return _.noConflict();
-			}
-		},
-		'jquery': {
-			exports: function() {
-				"use strict";
-				return $.noConflict();
+				return this.Backbone.noConflict();
 			}
 		}
 	}
 });
 
-define('main', ['backbone', 'router'], function (BB, Router) {
-	"use strict";
-});
-
-require(['main'], function (app) {
+require(['app'], function (app) {
 	"use strict";
 });
 
