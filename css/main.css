@@ -346,3 +346,136 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+body {
+  position: relative;
+  overflow: hidden;
+  -webkit-overflow-scroll: none;
+}
+header,
+footer {
+  position: fixed;
+  z-index: 30;
+}
+header {
+  top: 0;
+}
+footer {
+  bottom: 0;
+  width: 100%;
+}
+main {
+  width: 100%;
+  height: 20em;
+  z-index: 20;
+}
+main .panel {
+  width: 30%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  z-index: 10;
+  -ms-transition-property: width, left, right;
+  -ms-transition-duration: 200ms;
+  -webkit-transition-property: width, left, right;
+  -webkit-transition-duration: 200ms;
+  -moz-transition-property: width, left, right;
+  -moz-transition-duration: 200ms;
+  transition-property: width, left, right;
+  transition-duration: 200ms;
+}
+main .panel > .content {
+  -webkit-transform: translate3d(0, 0, 0);
+  -webkit-overflow-scrolling: touch;
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+}
+main .panel header {
+  -ms-transition-property: width, left, right;
+  -ms-transition-duration: 200ms;
+  -webkit-transition-property: width, left, right;
+  -webkit-transition-duration: 200ms;
+  -moz-transition-property: width, left, right;
+  -moz-transition-duration: 200ms;
+  transition-property: width, left, right;
+  transition-duration: 200ms;
+}
+main .panel header button.toggle.left {
+  float: left;
+}
+main .panel header button.toggle.right {
+  float: right;
+}
+main .panel.left {
+  left: 0;
+}
+main .panel.middle {
+  left: 30%;
+  width: 70%;
+  z-index: 20;
+}
+main .panel.middle header {
+  left: 30%;
+  width: 70%;
+}
+main .panel.middle.slideLeft {
+  left: 0;
+}
+main .panel.middle.slideLeft header {
+  left: 0;
+}
+main .panel.right {
+  right: 0;
+}
+.gridRow {
+  padding: 0;
+  margin: 0;
+}
+.gridRow [class*='col-'],
+.gridRow .col {
+  float: left;
+  margin: 0;
+}
+.gridRow .col-1-2 {
+  width: 50%;
+}
+.gridRow .col-1-3 {
+  width: 33.3333333%;
+}
+.gridRow .col-2-3 {
+  width: 66.6666666%;
+}
+.gridRow .col-1-4 {
+  width: 25%;
+}
+.gridRow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+header {
+  background: #b0b0ff;
+}
+main {
+  background: #dead00;
+}
+main .panel.left {
+  background: #ffb0b0;
+}
+main .panel.middle {
+  background: white;
+}
+main .panel.right {
+  background: #b0ffb0;
+}
+footer {
+  background: #b0b0ff;
+}

@@ -3,10 +3,12 @@ require.config({
 	paths: {
 		backbone: 'vendor/backbone-min',
 		underscore: 'vendor/underscore-min',
-		jquery: 'vendor/jquery-2.0.2.min'
+		jquery: 'vendor/jquery-2.0.2.min',
+		lorem: 'vendor/jquery.lorem',
+		dot: 'vendor/doT.min',
+		text: 'vendor/text'
 	},
 	shim: {
-
 		underscore: {
 			init: function() {
 				"use strict";
@@ -25,6 +27,9 @@ require.config({
 				"use strict";
 				return this.Backbone.noConflict();
 			}
+		},
+		dot: {
+			exports: 'doT'
 		}
 	}
 });
