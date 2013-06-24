@@ -383,13 +383,17 @@ main .panel {
   position: absolute;
   z-index: 10;
   -ms-transition-property: width, left, right;
-  -ms-transition-duration: 200ms;
+  -ms-transition-duration: 300ms;
+  -ms-transition-timing-function: ease;
   -webkit-transition-property: width, left, right;
-  -webkit-transition-duration: 200ms;
+  -webkit-transition-duration: 300ms;
+  -webkit-transition-timing-function: ease;
   -moz-transition-property: width, left, right;
-  -moz-transition-duration: 200ms;
+  -moz-transition-duration: 300ms;
+  -moz-transition-timing-function: ease;
   transition-property: width, left, right;
-  transition-duration: 200ms;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
 }
 main .panel > .content {
   -webkit-transform: translate3d(0, 0, 0);
@@ -398,20 +402,24 @@ main .panel > .content {
   height: 100%;
   width: 100%;
 }
-main .panel header {
+main .panel > header {
   -ms-transition-property: width, left, right;
-  -ms-transition-duration: 200ms;
+  -ms-transition-duration: 300ms;
+  -ms-transition-timing-function: ease;
   -webkit-transition-property: width, left, right;
-  -webkit-transition-duration: 200ms;
+  -webkit-transition-duration: 300ms;
+  -webkit-transition-timing-function: ease;
   -moz-transition-property: width, left, right;
-  -moz-transition-duration: 200ms;
+  -moz-transition-duration: 300ms;
+  -moz-transition-timing-function: ease;
   transition-property: width, left, right;
-  transition-duration: 200ms;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
 }
-main .panel header button.toggle.left {
+main .panel > header button.toggle.left {
   float: left;
 }
-main .panel header button.toggle.right {
+main .panel > header button.toggle.right {
   float: right;
 }
 main .panel.left {
@@ -426,14 +434,14 @@ main .panel.middle header {
   left: 30%;
   width: 70%;
 }
-main .panel.middle.slideLeft {
-  left: 0;
-}
-main .panel.middle.slideLeft header {
-  left: 0;
-}
 main .panel.right {
   right: 0;
+}
+main.slideLeft .panel.middle {
+  left: 0;
+}
+main.slideLeft .panel.middle header {
+  left: 0;
 }
 .gridRow {
   padding: 0;
@@ -460,6 +468,37 @@ main .panel.right {
   content: "";
   display: table;
   clear: both;
+}
+@media (min-width: 720px) and (max-width: 959px), (min-width: 1px) and (max-width: 719px) {
+  .gridRow .col-1-2 {
+    width: 100% !important;
+  }
+}
+@media (min-width: 1px) and (max-width: 719px) {
+  main .panel {
+    width: 100% !important;
+  }
+  main .panel > header {
+    width: 100% !important;
+  }
+  main .panel.middle {
+    left: 0%;
+  }
+  main .panel.middle > header {
+    left: 0%;
+  }
+  main.slideLeft .panel.middle {
+    left: -90%;
+  }
+  main.slideLeft .panel.middle > header {
+    left: -90%;
+  }
+  main.slideRight .panel.middle {
+    left: 90%;
+  }
+  main.slideRight .panel.middle > header {
+    left: 90%;
+  }
 }
 header {
   background: #b0b0ff;

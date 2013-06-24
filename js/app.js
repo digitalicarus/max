@@ -1,4 +1,4 @@
-/*global define:true*/
+/*global define:true,console:true*/
 define([
 	'backbone',
 	'jquery',
@@ -22,7 +22,8 @@ define([
 ) {
 	"use strict";
 
-	var	$win           = $(window)
+	var	DISPLAY_MODES  = { Desktop: 'desktop', Mobile: 'mobile' }
+	,   $win           = $(window)
 	,   $doc           = $(document)
 	,   $body          = $('body')
 	,   $main          = $('main')
@@ -35,6 +36,9 @@ define([
 	,   $leftContent   = $('.panel.left>.content')
 	,   $middleContent = $('.panel.middle>.content')
 	,   $rightContent  = $('.panel.right>.content')
+	,   previousMode   = DISPLAY_MODES.Desktop
+	,   displayMode    = DISPLAY_MODES.Desktop
+	,   mobileMediaQ   = "(min-width: 0px) and (max-width: 719px)" // copied from layout.less
 	;
 
 	//Temporary content
@@ -44,9 +48,9 @@ define([
 	$rightContent.html(Shared.dot.template(rightPanelTmpl));
 	$middleContent.html(Shared.dot.template(middleTmpl));
 
-	//TODO: mobile behavior + layout
+    //TODO: move all this crap to main.js
 	//TODO: mobile prevent zoom
-	//TODO: mobile encourage portrait
+	//TODO: mobile encourage portrait ??
 	//TODO: mobile encourage save to home
 	//TODO: fix mobile click delay https://github.com/ftlabs/fastclick
 	//TODO: diff button icons for mobile - invert slide behavior
@@ -57,14 +61,52 @@ define([
 		$main.height($win.height() - $footer.height());
 		$middleContent.height($main.height() - $header.height());
 		$middleContent.css('marginTop', $header.height());
+		if (window.matchMedia(mobileMediaQ).matches) {
+			previousMode = displayMode;
+			displayMode  = DISPLAY_MODES.Mobile;
+		} else {
+			previousMode = displayMode;
+			displayMode = DISPLAY_MODES.Desktop;
+        }
+        // reset slides if we've changed display mode
+        if(previousMode !== displayMode) {
+            $main.removeClass('slideLeft');
+            $main.removeClass('slideRight');
+        }
 	}
+
+	//TODO: simplify logic and combine slide functions into one to rule them all and in the clickness bind them
 	window.slideRight = function () {
-		$middle.removeClass('slideLeft');
-		$middle.addClass('slideRight');
+		if (displayMode === DISPLAY_MODES.Mobile) {
+			if ($main.hasClass('slideLeft')) { // we were slid left, center up
+				$main.removeClass('slideLeft');
+			} else if (!$main.hasClass('slideRight')) { // centered -- slide right
+                $right.css('z-index', 10);
+                $left.css('z-index', 15);
+				$main.addClass('slideRight');
+			}
+//			else { // already right, how did you press it?
+//			}
+		} else {
+			$main.removeClass('slideLeft');
+			$main.addClass('slideRight');
+		}
 	};
 	window.slideLeft = function () {
-		$middle.removeClass('slideRight');
-		$middle.addClass('slideLeft');
+		if (displayMode === DISPLAY_MODES.Mobile) {
+			if ($main.hasClass('slideRight')) { // we were slid right, center up
+				$main.removeClass('slideRight');
+			} else if (!$main.hasClass('slideLeft')) { // centered -- slide right
+                $left.css('z-index', 10);
+                $right.css('z-index', 15);
+				$main.addClass('slideLeft');
+            }
+//          else {// already left, how did you press it?
+//			}
+		} else {
+			$main.removeClass('slideRight');
+			$main.addClass('slideLeft');
+		}
 	};
 	$doc.on('touchmove', function (e) {
 		if (/body/i.test(e.target.nodeName)) {

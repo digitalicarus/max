@@ -4,7 +4,7 @@ require.config({
 		backbone: 'vendor/backbone-min',
 		underscore: 'vendor/underscore-min',
 		jquery: 'vendor/jquery-2.0.2.min',
-		lorem: 'vendor/jquery.lorem',
+		matchMedia: 'vendor/matchMedia',
 		dot: 'vendor/doT.min',
 		text: 'vendor/text'
 	},
@@ -34,7 +34,7 @@ require.config({
 	}
 });
 
-require(['app'], function (app) {
+require(['matchMedia', 'app'], function (app) {
 	"use strict";
 });
 

@@ -1,3 +1,7 @@
+@desktop:   ~"(min-width: 960px) and (max-width: 3000px)";
+@tablet:    ~"(min-width: 720px) and (max-width: 959px)";
+@mobile:    ~"(min-width: 1px) and (max-width: 719px)";
+
 @headerFooterHeight: 1em; // temporary
 
 *, *:before, *:after {
@@ -50,25 +54,34 @@ main {
 
 		//TODO: move to mixin
 		-ms-transition-property: width, left, right;
-		-ms-transition-duration: 200ms;
+		-ms-transition-duration: 300ms;
+		-ms-transition-timing-function: ease;
 		-webkit-transition-property: width, left, right;
-		-webkit-transition-duration: 200ms;
+		-webkit-transition-duration: 300ms;
+		-webkit-transition-timing-function: ease;
 		-moz-transition-property: width, left, right;
-		-moz-transition-duration: 200ms;
+		-moz-transition-duration: 300ms;
+		-moz-transition-timing-function: ease;
 		transition-property: width, left, right;
-		transition-duration: 200ms;
-
+		transition-duration: 300ms;
+		transition-timing-function: ease;
+ 
 		// Ridiculous! Firefox doesn't transition fixed children but everyone else does >:(
 		// Just do immediates for now to try to save computation - sheesh
-		header {
-			-ms-transition-property: width, left, right;
-			-ms-transition-duration: 200ms;
-			-webkit-transition-property: width, left, right;
-			-webkit-transition-duration: 200ms;
-			-moz-transition-property: width, left, right;
-			-moz-transition-duration: 200ms;
-			transition-property: width, left, right;
-			transition-duration: 200ms;
+		&>header {
+            -ms-transition-property: width, left, right;
+            -ms-transition-duration: 300ms;
+            -ms-transition-timing-function: ease;
+            -webkit-transition-property: width, left, right;
+            -webkit-transition-duration: 300ms;
+            -webkit-transition-timing-function: ease;
+            -moz-transition-property: width, left, right;
+            -moz-transition-duration: 300ms;
+            -moz-transition-timing-function: ease;
+            transition-property: width, left, right;
+            transition-duration: 300ms;
+            transition-timing-function: ease;
+
 
 			// arguably a layout item
 			button.toggle {
@@ -92,25 +105,30 @@ main {
 				left: 30%;
 				width: 70%;
 			}
-			&.slideLeft {
-				left: 0;
-				header {
-					left: 0;
-				}
-			}
+
 		}
 		&.right {
 			right: 0;
 		}
-	}
+	} // end main.panel
 
-}
+    &.slideLeft {
+        .panel.middle {
+            left: 0;
+            header {
+                left: 0;
+            }
+        }
+    }
+    //&.slideRight {} // not used for desktop -- just the default 
+} // end main
 
 
 // http://css-tricks.com/dont-overthink-it-grids/
 .gridRow {
 	padding: 0;
 	margin: 0;
+
 	[class*='col-'], .col /*dangit IE*/ {
 		float: left;
 		margin: 0;
@@ -135,3 +153,48 @@ main {
 		clear: both;
 	}
 }
+
+// just collapse some grids on tablet
+@media @tablet, @mobile {
+    .gridRow {
+        .col-1-2 {
+            width: 100% !important;
+        }
+    }
+}
+
+// now things get interesting... Facebook style layout
+@media @mobile {
+
+    main {
+        .panel {
+            width: 100% !important;
+            &>header {
+                width: 100% !important;
+            }
+            &.middle {
+                left: 0%;
+                &>header {
+                    left: 0%;
+                }
+            }
+        }
+        &.slideLeft {
+            .panel.middle {
+                left: -90%;
+                &>header {
+                    left: -90%;
+                } 
+            }
+        }
+        &.slideRight {
+            .panel.middle {
+                left: 90%;
+                &>header {
+                    left: 90%;
+                }
+            }
+        }
+    }
+}
+
